@@ -1,5 +1,5 @@
 selenium==4.0.0
 2captcha-python==1.1.2
-art==5.7
 python-dotenv==0.20.0
+art==5.7
 colorama==0.4.5

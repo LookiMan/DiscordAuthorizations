@@ -13,7 +13,12 @@ from art import tprint
 from colorama import init, Fore
 
 from robot import init_discord_robot
-from utils import Credentials, create_password, safe_input
+from utils import (
+    Credentials,
+    register_user,
+    create_password,
+    safe_input,
+)
 
 
 init(autoreset=True)
@@ -31,10 +36,18 @@ def main():
         password=create_password(),
     )
 
+    token = register_user(creds)
+
+    if not token:
+        print(Fore.RED + "[!] Failed to get the user token")
+        exit(1)
+
+    print(Fore.GREEN + f"[i] User token: {token}")
+
     discord_robot = init_discord_robot()
 
     try:
-        discord_robot.start(creds)
+        discord_robot.login(token)
     except Exception as exc:
         print(Fore.RED + f"[!]: {exc}")
     finally:
